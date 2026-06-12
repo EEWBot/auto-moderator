@@ -87,7 +87,7 @@ impl EventHandler for Handler {
             }
         };
 
-        for (channel_id, _) in &channels {
+        for channel_id in channels.keys() {
             let mut channel_stream = channel_id.messages_iter(&ctx.http).boxed();
 
             let channel_name = match channel_id.name(&ctx.http).await {
@@ -147,7 +147,7 @@ async fn main() {
     let intents = GatewayIntents::GUILD_MESSAGES | GatewayIntents::MESSAGE_CONTENT;
 
     let mut client = Client::builder(&cli.discord_token, intents)
-        .event_handler(Handler { config: config })
+        .event_handler(Handler { config })
         .await
         .expect("Failed to create client");
 
