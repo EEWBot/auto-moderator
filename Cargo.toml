@@ -1,0 +1,15 @@
+[package]
+name = "auto-moderator"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.6.1", features = ["derive", "env"] }
+humantime = "2.3.0"
+humantime-serde = "1.1.1"
+serde = { version = "1.0.228", features = ["derive"] }
+serenity = "0.12.5"
+tokio = { version = "1.52.3", features = ["macros", "rt-multi-thread", "time"] }
+toml = { version = "1.1.2", features = ["parse", "serde"] }
+tracing = "0.1.44"
+tracing-subscriber = "0.3.23"
