@@ -10,7 +10,7 @@ on:
 env:
   CARGO_INCREMENTAL: 0
   RUST_CACHE_VERSION: v1
-  REGISTRY_IMAGE: ghcr.io/EEWBot/auto-moderator
+  REGISTRY_IMAGE: ghcr.io/eewbot/auto-moderator
   PROJ_NAME: auto-moderator
 
 jobs:
