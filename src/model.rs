@@ -1,6 +1,6 @@
+use std::collections::HashMap;
 use std::path::PathBuf;
 use std::time::Duration;
-use std::collections::HashMap;
 
 use clap::Parser;
 use serde::Deserialize;
