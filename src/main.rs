@@ -4,6 +4,7 @@ use std::time::SystemTime;
 
 use clap::Parser;
 use serenity::async_trait;
+use serenity::builder::CreateMessage;
 use serenity::futures::StreamExt;
 use serenity::model::channel::Message;
 use serenity::model::gateway::Ready;
@@ -58,6 +59,30 @@ impl EventHandler for Handler {
         let trapped_in = SystemTime::now();
 
         tracing::warn!("{warn_msg}");
+
+        if let Some(message) = &server_config.moderation_message {
+            match msg.author.create_dm_channel(&ctx.http).await {
+                Ok(channel) => {
+                    if let Err(e) = channel
+                        .send_message(&ctx.http, CreateMessage::new().content(message))
+                        .await
+                    {
+                        tracing::warn!(
+                            "Failed to send DM channel to {} - {}: {e}",
+                            msg.author.name,
+                            msg.author.id
+                        );
+                    }
+                }
+                Err(e) => {
+                    tracing::warn!(
+                        "Failed to create DM channel to {} - {}: {e}",
+                        msg.author.name,
+                        msg.author.id
+                    );
+                }
+            }
+        }
 
         match server_config.moderation {
             Moderation::Disabled => tracing::info!("Do nothing"),

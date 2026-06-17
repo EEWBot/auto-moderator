@@ -43,6 +43,8 @@ pub struct ServerConfig {
     pub traps: Vec<u64>,
     pub whitelist: Vec<u64>,
 
+    pub moderation_message: Option<String>,
+
     #[serde(default = "default_moderation")]
     pub moderation: Moderation,
 }
